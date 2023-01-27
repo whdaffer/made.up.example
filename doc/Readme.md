@@ -193,6 +193,47 @@ I would have removed my local repo.
 
 I say this just to emphasize how ''distributed'' this system is, and increase your peace of mind that it really takes quite a bit of work to completely eliminate all the files once you've put them in a local Git repo to which you have 1) connected a remote and 2) pushed your changes to that remote!
 
+= doing some work =
+
+I've been editing this file for a while, so let's see what the status of my local repo is...
+
+	% git status
+	On branch main
+	Your branch is up to date with 'origin/main'.
+
+	Changes not staged for commit:
+	  (use "git add <file>..." to update what will be committed)
+	  (use "git restore <file>..." to discard changes in working directory)
+		modified:   doc/Readme.md
+     no changes added to commit (use "git add" and/or "git commit -a")		
+
+It says I have one modified file. It's '''this file''', doc/Readme.md (I issued the command from the directory above ''doc''.)
+
+Remember that getting the changes into the systme is a two step process: ''add'' and ''commit''. That's what the last line is saying.
+
+    % git add . # Add all the changes
+	
+Git works recursively, so all the files it finds in all the subdirectories that have changed since the last commit will be ''add''ed.
+
+	% git status
+	On branch main
+    Your branch is up to date with 'origin/main'.
+
+	Changes to be committed:
+	  (use "git restore --staged <file>..." to unstage)
+		modified:   doc/Readme.md
+
+And here we see doc/Readme.md has been ''add''ed and will be committed during the next ''commit'' unless unstaged using the indicated command.
+
+So, I'm happy that everything is kosher and I'll commit my changes. 
+
+    % git commit -m "Working on doc/Readme.md"
+	[main 5c3dd8a] Working on doc/Readme.md
+	 1 file changed, 196 insertions(+), 6 deletions(-)
+
+Unfortunately, I can't issue the following command, because, by writing this up I am, again, modifying the file, so it ''git status'' will show it modified. Al
+    % git status
+	
 
 = cloning a remote repository =
 
