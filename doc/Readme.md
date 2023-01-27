@@ -231,7 +231,6 @@ So, I'm happy that everything is kosher and I'll commit my changes.
 	[main 5c3dd8a] Working on doc/Readme.md
 	 1 file changed, 196 insertions(+), 6 deletions(-)
 
-Unfortunately, I can't issue the following command, because, by writing this up I am, again, modifying the file, so it ''git status'' will show it modified. Al
     % git status
 	
 
