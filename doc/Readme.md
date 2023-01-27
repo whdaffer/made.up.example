@@ -69,7 +69,7 @@ In the  case I'm demonstrating here, that directory is named ''made.up.example''
 # Initialize the git repository
 
     % git init . [--bare] 
-	
+    
 Creates the './.git' directory which is where git  stores its information about this repo. AT the moment, the repository is '''completely empty'''
 
 
@@ -91,8 +91,8 @@ As you can probably guess, I think they missed an opportunity in the naming here
 # Commit the 'changes', which in this case is the creation event.
 
     % git commit -m "initial commit"
-	Or whatever message you want
-	
+    Or whatever message you want
+    
 
 At the moment, all you have is a local repository. Eventually you want to add it to a remote resource, e.g. github.com. To do this, you have to specify a ''remote'' repository. And then you'll tell git that you want to ''push'' changes to that repository. (However, it's possible to have a ''remote'' repository that is actually ''local'', i.e. on your current machine. So far as I can tell, ''remote'' only means ''not this current repo'', not necessarily on a different machine which you access via some remote protocol like https or ssh.
 
@@ -112,58 +112,58 @@ For this I'm using the command line utility ''gh'' (which is provided by github 
 See [https://cli.github.com/manual/installation This page on installing gh] at Github.com. It involves using a package manager named ''homebrew'' (Macintosh) or ''Linubrew'' on Linux. If you have ''homebrew'', do
 
      % brew intall gh
-	 
+     
 
 
 # Adding a remote
 
 The nice thing about the ''gh'' is that it steps you thgouth the process prompting you at each step and filling in some defaults. I'll show you the entire interaction. Everything with a '?' at the beginning of the line is a ''gh'' prompt, everything surrounded by angle brackets '<...>' are my comments.
 
-	[tmp/made.up.example % gh repo create 
-	? What would you like to do? Push an existing local repository to GitHub
+    [tmp/made.up.example % gh repo create 
+    ? What would you like to do? Push an existing local repository to GitHub
 
-	  <menu: create from scratch or add local>
+      <menu: create from scratch or add local>
 
-	? Path to local repository .
+    ? Path to local repository .
 
-	  <If you choose to add a local repo, it assumes you're 
-	  in the working directory and defaults to '.'>
+      <If you choose to add a local repo, it assumes you're 
+      in the working directory and defaults to '.'>
 
-	? Repository name made.up.example
-	  <It defaults to the name of the directory you're in.
-	  which is the name of the directory where I'm working>
+    ? Repository name made.up.example
+      <It defaults to the name of the directory you're in.
+      which is the name of the directory where I'm working>
 
-	? Description: Working with git and github (gh)
+    ? Description: Working with git and github (gh)
 
-	  <A description. I guess this will end up in some file
-	  in the github repo, but I don't know.>
+      <A description. I guess this will end up in some file
+      in the github repo, but I don't know.>
 
-	? Visibility Public
-	  <public/private/Internal Don't know what 'internal' is>
+    ? Visibility Public
+      <public/private/Internal Don't know what 'internal' is>
 
-	✓ Created repository whdaffer/made.up.example on GitHub
-	? Add a remote? Yes
+    ✓ Created repository whdaffer/made.up.example on GitHub
+    ? Add a remote? Yes
 
-	? What should the new remote be called? origin
+    ? What should the new remote be called? origin
 
       <went with the default. If you look this up on the web, 
-	  you'll see this is the default name for the remote. 
-	  I don't know why.>
-	
-	  ?would you like to push commits from the current branch to "origin"? (Y/n)
+      you'll see this is the default name for the remote. 
+      I don't know why.>
+    
+      ?would you like to push commits from the current branch to "origin"? (Y/n)
   
-	   <The default is 'Y', which means that my 
-	    repo on github now exists and is populated 
-		with my files>
+       <The default is 'Y', which means that my 
+        repo on github now exists and is populated 
+        with my files>
 
 And just to see what is my ''remote'' repo, I do
 
     git remote -v
-    origin	git@github.com:whdaffer/made.up.example.git (fetch)
-    origin	git@github.com:whdaffer/made.up.example.git (push)	
-	
-	
-	
+    origin  git@github.com:whdaffer/made.up.example.git (fetch)
+    origin  git@github.com:whdaffer/made.up.example.git (push)  
+    
+    
+    
 # Deleting a remote
 
 Which really means telling git that this particular local Repo is no longer associated with the remote as it once was. This doesn't delete it from the server, it just severs the connection between the local and the remote. To actually delete it, you have to log onto your server and do it there. 
@@ -177,16 +177,16 @@ You have to use the regular file-handling commands on whatever machine you're wo
 The vanilla Git command is
 
     % git remote rm <remote-name>
-	
+    
 In my case, it would be (this is untested!!!)
 
 
     % git remote rm git@github.com:whdaffer/made.up.example.git
-	
+    
 If I then followed that with ...
 
      % cd ..; rm -rf ./make.up.example.git
-	 
+     
 I would have removed my local repo. 
 
 '''However''', the repository on the remote server will still exist and contain all the data I've added, committed and pushed to it! 
@@ -197,42 +197,61 @@ I say this just to emphasize how ''distributed'' this system is, and increase yo
 
 I've been editing this file for a while, so let's see what the status of my local repo is...
 
-	% git status
-	On branch main
-	Your branch is up to date with 'origin/main'.
+    % git status
+    On branch main
+    Your branch is up to date with 'origin/main'.
 
-	Changes not staged for commit:
-	  (use "git add <file>..." to update what will be committed)
-	  (use "git restore <file>..." to discard changes in working directory)
-		modified:   doc/Readme.md
-     no changes added to commit (use "git add" and/or "git commit -a")		
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git restore <file>..." to discard changes in working directory)
+        modified:   doc/Readme.md
+     no changes added to commit (use "git add" and/or "git commit -a")      
 
 It says I have one modified file. It's '''this file''', doc/Readme.md (I issued the command from the directory above ''doc''.)
 
 Remember that getting the changes into the systme is a two step process: ''add'' and ''commit''. That's what the last line is saying.
 
     % git add . # Add all the changes
-	
+    
 Git works recursively, so all the files it finds in all the subdirectories that have changed since the last commit will be ''add''ed.
 
-	% git status
-	On branch main
+    % git status
+    On branch main
     Your branch is up to date with 'origin/main'.
 
-	Changes to be committed:
-	  (use "git restore --staged <file>..." to unstage)
-		modified:   doc/Readme.md
+    Changes to be committed:
+      (use "git restore --staged <file>..." to unstage)
+        modified:   doc/Readme.md
 
 And here we see doc/Readme.md has been ''add''ed and will be committed during the next ''commit'' unless unstaged using the indicated command.
 
 So, I'm happy that everything is kosher and I'll commit my changes. 
 
     % git commit -m "Working on doc/Readme.md"
-	[main 5c3dd8a] Working on doc/Readme.md
-	 1 file changed, 196 insertions(+), 6 deletions(-)
+    [main 5c3dd8a] Working on doc/Readme.md
+     1 file changed, 196 insertions(+), 6 deletions(-)
 
     % git status
-	
+    In branch main
+    Your branch is ahead of 'origin/main' by 3 commits.
+      (use "git push" to publish your local commits)
+
+    nothing to commit, working tree clean   
+
+Again, I've modified the local repo, but I haven't ''pushed'' my changes to the remote yet! Nothing's final there until I do!
+
+    % git push 
+    Enumerating objects: 15, done.
+    Counting objects: 100% (15/15), done.
+    Delta compression using up to 16 threads
+    Compressing objects: 100% (9/9), done.
+    Writing objects: 100% (12/12), 6.74 KiB | 3.37 MiB/s, done.
+    Total 12 (delta 2), reused 0 (delta 0), pack-reused 0
+    remote: Resolving deltas: 100% (2/2), done.
+    To github.com:whdaffer/made.up.example.git
+       03886bb..44c5f91  main -> main
+
+
 
 = cloning a remote repository =
 
@@ -244,11 +263,11 @@ This will involve us in some nomenclature and discussion of authentication proto
 Information on how you ''clone'' a repository is contained in the URL that specifies the repo. In my case, the URL is 
 
     git@github.com:whdaffer/made.up.example.git
-	
-	
+    
+    
 If I went to another of my machines and did
 
-	
-	
-	
-	
+    
+    
+    
+    
